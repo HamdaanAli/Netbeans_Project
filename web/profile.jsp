@@ -157,7 +157,53 @@ clip-path: polygon(30% 0%, 70% 0%, 100% 0, 100% 90%, 67% 93%, 33% 100%, 0 91%, 0
                          }
                                  session.removeAttribute("msg");
                             %>
+   <!--main body of the page-->
+   <main>
+       <div class="container">
+           <div class="row mt-4">
+               <!--first col-->
+               <div class="col-md-4">
+                   <!--categories-->
+                   <div class="list-group">
+                    <a href="#" onclick="getPosts(0,this)" class="c-link list-group-item list-group-item-action active">
+                        All Posts
+                    </a>
+                        <!--categories-->
+                       <%
+                           PostDao d=new PostDao(ConnectionProvider.getConnection());
+                          ArrayList<category> list1=d.getAllCategories();
+                          for(category cc:list1)
+                          {
+                             %> 
+                             <a href="#" onclick="getPosts(<%= cc.getCid() %>,this)" class="c-link list-group-item list-group-item-action"><%= cc.getName() %></a>
+                             <%
+                          }
+                           %>
+                        
+  
+                    </div>
+                   
+                   
+                   
+               </div>
+               <!--second col-->  
+               <div class="col-md-8">
+                   <!--posts-->
+                   <div class="container text-center" id="loader">
+                       <i class="fa fa-refresh fa-4x fa-spin"></i>
+                       <h3 class="mt-2">Loading....</h3>
+                   </div> 
+                   <div class="container-fluid" id="post-container">
+                       
+                   </div>
+               </div>
+           </div>
+       </div>
+   </main>
    
+   
+   
+   <!--end main body of the page-->
    <!--profilemodal-->
   
 
@@ -264,7 +310,7 @@ clip-path: polygon(30% 0%, 70% 0%, 100% 0, 100% 90%, 67% 93%, 33% 100%, 0 91%, 0
 </div>
                           
                           
- <!--add post modal-->
+ <!--add post modal--> 
  
  
  
@@ -313,7 +359,7 @@ clip-path: polygon(30% 0%, 70% 0%, 100% 0, 100% 90%, 67% 93%, 33% 100%, 0 91%, 0
                data: form,
                success: function (data, textStatus, jqXHR) {
                         console.log(data);
-                        if(data.trim()=='done')
+                        if(data.trim()== 'done')
                         {
                             swal("Good job!", "Post Uploaded Successfully!", "success");
                         }else
@@ -330,6 +376,31 @@ clip-path: polygon(30% 0%, 70% 0%, 100% 0, 100% 90%, 67% 93%, 33% 100%, 0 91%, 0
            })
         })
     });
+</script>
+<!--loading post using ajax-->
+<script>
+    function getPosts(catId,temp)
+    {
+        $("#loader").show();
+        $("#post-container").hide();
+        $(".c-link").removeClass('active')
+         $.ajax({
+            url: "load_post.jsp",
+            data:{cid:catId},
+            success: function (data, textStatus, jqXHR) {
+                        console.log(data);
+                        $("#loader").hide();
+                        $("#post-container").show();
+                        $("#post-container").html(data);
+                        $(temp).addClass('active')
+                    }
+        })
+    }
+    $(document).ready(function (e){
+        let allPostRef=$('.c-link')[0]
+       getPosts(0,allPostRef);
+        
+    })
 </script>
 </body>
 </html>

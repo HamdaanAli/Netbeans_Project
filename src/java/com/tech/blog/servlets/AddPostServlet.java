@@ -42,14 +42,7 @@ public class AddPostServlet extends HttpServlet {
         response.setContentType("text/html;charset=UTF-8");
         try (PrintWriter out = response.getWriter()) {
             /* TODO output your page here. You may use following sample code. */
-            out.println("<!DOCTYPE html>");
-            out.println("<html>");
-            out.println("<head>");
-            out.println("<title>Servlet AddPostServlet</title>");            
-            out.println("</head>");
-            out.println("<body>");
-            out.println("<h1>Servlet AddPostServlet at " + request.getContextPath() + "</h1>");
-            out.println("</body>");
+           
             int cid= Integer.parseInt(request.getParameter("cid"));
             String pTitle= request.getParameter("pTitle");
             String pContent= request.getParameter("pContent");
@@ -62,10 +55,10 @@ public class AddPostServlet extends HttpServlet {
             PostDao dao=new PostDao(ConnectionProvider.getConnection());
             if(dao.savePost(p))
             {
-              out.println("Done");
+           
               String path=request.getRealPath("/")+"blog_pics"+File.separator+part.getSubmittedFileName();
               Helper.saveFile(part.getInputStream(), path);
-              out.println("Done");
+              out.println("done");
 
               
             }else
@@ -74,13 +67,12 @@ public class AddPostServlet extends HttpServlet {
 
             }
             
-            
 //            out.println("Your Post id is "+cid);
 //            out.println("Your Post Title is "+pTitle);
 //            out.println("\nYour Post Content is "+pContent);
 //            out.println("\nYour Post Code is "+pCode);
 //            out.println("\nYour Post pic name is "+part.getSubmittedFileName());
-            out.println("</html>");
+           
         }
     }
 

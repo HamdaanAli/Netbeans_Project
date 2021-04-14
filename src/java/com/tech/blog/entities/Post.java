@@ -46,6 +46,10 @@ public class Post {
         
     }
 
+    public Post(int pid, String pTitle, String pContent, String pCode, String pPic, Timestamp date, int userId) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
     public int getUserId() {
         return userId;
     }

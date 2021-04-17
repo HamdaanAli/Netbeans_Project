@@ -4,6 +4,9 @@
     Author     : HaMdaan
 --%>
 
+<%@page import="java.util.List"%>
+<%@page import="com.tech.blog.entities.Post"%>
+<%@page import="com.tech.blog.dao.PostDao"%>
 <%@page import="com.tech.blog.helper.ConnectionProvider"%>
 <%@page import="java.sql.*"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
@@ -42,70 +45,36 @@ clip-path: polygon(30% 0%, 70% 0%, 100% 0, 100% 90%, 67% 93%, 33% 100%, 0 91%, 0
     <!--//cards-->
       <div class="container">
           <div class="row">
+              <%
+              PostDao d=new PostDao(ConnectionProvider.getConnection());
+              List<Post> posts=null;
+              posts=d.getAllPosts();
+              for(Post p:posts)
+                {
+              %>
+              
               <div class="col-md-4">
                   <div class="card">
   
                      <div class="card-body">
-                       <h5 class="card-title">Java Programming</h5>
-                         <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-                            <a href="#" class="btn primary-backgroud text-white">Read more</a>
+                       <img class="card-img-top" src="blog_pics/<%= p.getpPic()%>" alt="Card image cap">
+                        <div class="card-body">
+                         <h3><%= p.getpTitle() %></h3>
+<!--                             <p><%= p.getpContent() %></p>
+                            <p><%= p.getpCode() %></p>-->
                             </div>
                         </div>
                     </div>
-              <div class="col-md-4">
-                  <div class="card">
-  
-                     <div class="card-body">
-                       <h5 class="card-title">Java Programming</h5>
-                         <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-                            <a href="#" class="btn primary-backgroud text-white">Read more</a>
-                            </div>
-                        </div>
-                    </div>
-              <div class="col-md-4">
-                  <div class="card">
-  
-                     <div class="card-body">
-                       <h5 class="card-title">Java Programming</h5>
-                         <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-                            <a href="#" class="btn primary-backgroud text-white">Read more</a>
-                            </div>
-                        </div>
-                    </div>
+                            <div class="card-footer bg-primary text-center">
+    <a href="#!" class="btn btn-outline-light btn-sm"><i class="fa fa-thumbs-o-up"></i><span>10</span></a>
+    <a href="show_blog_page.jsp?post_id=<%=p.getPid() %>" class="btn btn-outline-light btn-sm">Read More...</a>
+    <a href="#!" class="btn btn-outline-light btn-sm"><i class="fa fa-commenting-o"></i><span>20</span></a>
+</div>
           </div> 
-          <br>
-          <div class="row">
-              <div class="col-md-4">
-                  <div class="card">
-  
-                     <div class="card-body">
-                       <h5 class="card-title">Java Programming</h5>
-                         <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-                            <a href="#" class="btn primary-backgroud text-white">Read more</a>
-                            </div>
-                        </div>
-                    </div>
-              <div class="col-md-4">
-                  <div class="card">
-  
-                     <div class="card-body">
-                       <h5 class="card-title">Java Programming</h5>
-                         <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-                            <a href="#" class="btn primary-backgroud text-white">Read more</a>
-                            </div>
-                        </div>
-                    </div>
-              <div class="col-md-4">
-                  <div class="card">
-  
-                     <div class="card-body">
-                       <h5 class="card-title">Java Programming</h5>
-                         <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-                            <a href="#" class="btn primary-backgroud text-white">Read more</a>
-                            </div>
-                        </div>
-                    </div>
-          </div>
+          <%
+    
+                }
+                 %>
         </div>
 <script src="https://code.jquery.com/jquery-3.5.1.min.js" integrity="sha256-9/aliU8dGd2tb6OSsuzixeV4y/faTqgFtohetphbbj0=" crossorigin="anonymous"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>

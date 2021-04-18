@@ -1,4 +1,5 @@
 
+<%@page import="com.tech.blog.dao.LikeDao"%>
 <%@page import="java.text.DateFormat"%>
 <%@page import="com.tech.blog.dao.UserDao"%>
 <%@page import="com.tech.blog.entities.Post"%>
@@ -145,7 +146,10 @@ clip-path: polygon(30% 0%, 70% 0%, 100% 0, 100% 90%, 67% 93%, 33% 100%, 0 91%, 0
                        
                    </div>
                    <div class="card-footer bg-primary text-center">
-                    <a href="#!" class="btn btn-outline-light btn-sm"><i class="fa fa-thumbs-o-up"></i><span>10</span></a>
+                       <%
+                         LikeDao ld=new LikeDao(ConnectionProvider.getConnection());    
+                       %>
+                       <a href="#!" onclick="doLike(<%= p.getPid() %>,<%= user.getId() %> )" class="btn btn-outline-light btn-sm"><i class="fa fa-thumbs-o-up"></i><span class="like-counter"><%= ld.countLikeOnPost(p.getPid()) %></span></a>
                     <a href="#!" class="btn btn-outline-light btn-sm"><i class="fa fa-commenting-o"></i><span>20</span></a>
                     </div>
                </div>
@@ -268,7 +272,7 @@ clip-path: polygon(30% 0%, 70% 0%, 100% 0, 100% 90%, 67% 93%, 33% 100%, 0 91%, 0
  
  
  <!--javascripts-->
- 
+ <script src="js/myjs.js" type="text/javascript"></script>
 <script src="https://code.jquery.com/jquery-3.5.1.min.js" integrity="sha256-9/aliU8dGd2tb6OSsuzixeV4y/faTqgFtohetphbbj0=" crossorigin="anonymous"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script> 
